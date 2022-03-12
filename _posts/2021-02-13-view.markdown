@@ -1,0 +1,78 @@
+---
+title: iOS View
+date: 2022-02-13 13:41:10 +0400
+categories: [Swift]
+tags: [writing, swift]
+---
+
+## Lifecycle
+Lifecycle of a UIViewController:
+- `loadView`
+Creates the view that the controller manages. It’s only called when the view controller is created and only when done programatically. It is responsible for making the view property exist in the first place.
+- `viewDidLoad`
+Called after the controller’s view is loaded into memory. It’s only called when the view is created.
+- `viewWillAppear`
+It’s called whenever the view is presented on the screen. In this step the view has bounds defined but the orientation is not applied.
+- `viewWillLayoutSubviews`
+Called to notify the view controller that its view is about to layout its subviews. This method is called every time the frame changes
+- `viewDidLayoutSubviews`
+Called to notify the view controller that its view has just laid out its subviews. Make additional changes here after the view lays out its subviews.
+- `viewDidAppear`
+Notifies the view controller that its view was added to a view hierarchy.
+- `viewWillDisappear`
+Before the transition to the next view controller happens and the origin view controller gets removed from screen, this method gets called.
+- `viewDidDisappear`
+After a view controller gets removed from the screen, this method gets called. You usually override this method to stop tasks that are should not run while a view controller is not on screen.
+- `viewWillTransition(to:with:)`
+When the interface orientation changes, UIKit calls this method on the window’s root view controller before the size changes are about to be made. The root view controller then notifies its child view controllers, propagating the message throughout the view controller hierarchy.
+
+## Layout
+
+### `setNeedsLayout()`
+- The method `setNeedsLayout` for a `UIView` tells the system that you want it to layout and redraw that view and all of its subviews, when it is time for the update cycle. This is an asynchronous activity, because the method completes and returns immediately, but it isn’t until some later time that the layout and redraw actually happens, and you don’t know when that update cycle will be.
+- Apple doc says: Call this method on your application’s main thread when you want to adjust the layout of a view’s subviews. This method makes a note of the request and returns immediately. Because this method does not force an immediate update, but instead waits for the next update cycle, you can use it to invalidate the layout of multiple views before any of those views are updated. This behavior allows you to consolidate all of your layout updates to one update cycle, which is usually better for performance.
+
+### `layoutIfNeeded()`
+In contrast, the method layoutIfNeeded is a synchronous call that tells the system you want a layout and redraw of a view and its subviews, and you want it done immediately without waiting for the update cycle. When the call to this method is complete, the layout has already been adjusted and drawn based on all changes that had been noted prior to the method call.
+
+### `layoutSubviews()`
+- The default implementation uses any constraints you have set to determine the size and position of any subviews.
+Subclasses can override this method as needed to perform more precise layout of their subviews. You should override this method only if the auto-resizing and constraint-based behaviors of the subviews do not offer the behavior you want. You can use your implementation to set the frame rectangles on your subviews directly.
+- You should not call this method directly. If you want to force a layout update, call the [setNeedsLayout()](https://developer.apple.com/documentation/uikit/uiview/1622601-setneedslayout) method instead to do so prior to the next drawing update. If you want to update the layout of your views immediately, call the [layoutIfNeeded()](https://developer.apple.com/documentation/uikit/uiview/1622507-layoutifneeded) method.
+
+- `updateConstraints` typically doesn't do anything. It just resolves constraints it doesn't apply them till layoutSubviews is called. So animation does requires a call to `layoutSubviews`.
+
+2. Does `setNeedsLayout` also call `updateContraints` method?
+No this is not necessary. If your constraints haven't been modified UIView will skip call to updateConstraints. You need to explicitly call setNeedsUpdateConstraint to modify constraints in the process.
+
+## Responders
+- UIView is UIResponder type
+- UIViewController is also UIResponder type
+They are the common classes that deals with responding to touches, motion events and etc.
+
+### Who is the FIRST responder?
+- When user tap on a view, the system has to first find out who is the first responder?
+- This is known as a hit-test phase.
+- A hit testing phase starts from the lowest level (the window).
+- Hit test traverse up, while responder chain traverse down.
+- `hitTest:withEvent:` will be called [recursively](https://stackoverflow.com/a/4961484/242682) into subviews (traverse up), until it reaches the leaf view. That responder is the first.
+
+### Target-Action
+The target-action mechanism also uses the responder chain by setting the target to nil. Then iOS asks the first responder if it handles the action. If not the first responder passes the action to the [nextResponder](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIResponder_Class/index.html#//apple_ref/occ/instm/UIResponder/nextResponder).
+
+## Constraints
+
+### Hugging priority: 
+- The one with higher priority hugs its content more and make the other expand more than its intrinsic content. 
+- Content hugging priority comes in action when there is lesser content to display, than the available size.
+
+### Compression resistance
+- It comes into action when content requires more size than the available, when multi-lines.
+- So if we set content compression resistance priority of primary label higher than the secondary label, the secondary label would truncate. And when, content compression resistance priority of primary label is set lower than the secondary label, the primary label would truncate.
+
+### Resources:
+- Constraints: [https://medium.com/@dineshk1389/content-hugging-and-compression-resistance-in-ios-35a0e8f19118]()
+- Hit test: [http://smnh.me/hit-testing-in-ios]() 
+- Responder Chain: [https://swiftandpainless.com/utilize-the-responder-chain-for-target-action/]()
+- [https://stackoverflow.com/questions/4961386/event-handling-for-ios-how-hittestwithevent-and-pointinsidewithevent-are-r/4961484#4961484]() 
+

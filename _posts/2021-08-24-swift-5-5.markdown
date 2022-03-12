@@ -1,0 +1,227 @@
+---
+title: Swift 5.5 notes
+date: 2021-08-24 13:41:10 +0400
+categories: [Swift]
+tags: [writing, swift]
+---
+
+## [SE-2096][SE-0296] async, await
+
+These are the two new keywords in Swift 5.5 for `func`s mostly to make them asynchronous and use it like a synchronous function.
+`async` and `await` is to help us avoid pyramid of doom by avoiding completion handler. 
+
+Ex:
+```swift
+func foo() async -> Int { 0 }
+
+await foo()
+```
+
+When function throws
+
+Ex:
+```swift
+func foo() async throws -> Int { 0 }
+
+try await foo()
+```
+
+- Synchronous functions can not call asynchronous functions directly, they must use await keyword.
+- async functions can call async functions
+- We can have two functions with same name and only differs with `async` keyword, Compiler decides at runtime based on context.
+
+## [SE-2098][SE-0298] async sequence
+
+`AsyncSequence` and `AsyncIteratorProtocol` are new adding for concurrency for looping over asynchronous sequence of values.
+
+Ex:
+```swift
+struct MyArray: AsyncSequence {
+    struct MyIterator: AsyncIteratorProtocol {
+        func next() async -> Int { 0 }
+    }
+}
+
+for await item in myArray {}
+```
+
+## [SE-0310][SE-0310] async readonly properties
+
+Ex:
+```swift
+struct User {
+    var name: String {
+        get async throws {
+            try String(contentOf: ... )
+        }
+    }
+}
+
+try await User().name
+```
+
+## [SE-0304][SE-0304] Structured concurrency
+
+`Task` and `TaskGroup` allows us to run concurrent operations with a range of functions like `execute`, `cancel`, `monitor` etc.
+
+Ex:
+```swift
+let myTask = Task { 
+    //...
+}
+
+let result = await myTask.value
+```
+
+- `myTask` will start running on background thread immediately
+- Task starts running as soon as it is created.
+- Task has priorities like `high`, `low`, `default` and `background`.
+  - `userInitiated` ~> `high`
+  - `utility` ~> `low`
+  - `userInteractive` ~> only for main thread
+- Task can `sleep`, `cancel`, `checkCancel` and also
+- `yield()` which suspends the current task for few moments in order to give sometime to any other task that might be waiting.
+
+## [SE-0317][SE-0317] async let binding
+
+Ex:
+```swift
+func calculateAge() async -> Int { 0 }
+
+async let age = calculateAge()
+```
+
+- we can only use `async let` if we are already in a async context.
+- `try` is not required for throwing functions `try async let` is not valid. It can automatically be pushed where we await result.
+```swift
+    func foo() async throws {}
+    async let x = foo()
+    try await x
+```
+
+## [SE-0300][SE-0300] Continuations
+
+1. `withCheckedContinuation` swift performs runtime check to warn us about the `resume` call.
+2. `withUnsafeContinuation` swift does not performs any check
+3. `resume` function must be called ONLY once.
+
+Ex:
+```swift
+func fetchData(_ completion: @escaping ([Int]) -> Void) {}
+func fetch() async -> [Int] {
+    await withCheckedContinuation { cont in //1
+        fetchData { array in
+            cont.resume(returning: array) //3
+        }
+    }
+}
+```
+
+## [SE-0306][SE-0306] Actors
+
+- Actors are like classes which are safe to use in concurrent environment.
+- Swift ensures that mutable state inside Actor are always accessed by one threat at any given time.
+- Actors are like atomic classes.
+- `actor` is the new type just like `class`, `struct` and `enum`.
+- They can have methods, properties, initializers, subscripts and static properties. It can confirm to protocols and be generic.
+- Actors can use its own properties and functions freely but if it is using another actor inside then it can be used only asynchronously.
+- `actor` is a reference type just like a `class`.
+- Actors do not support inheritance, so No `overriding`, No `final`, No super calls.
+- All actors implicitly confirms to new Actor protocol.
+
+Ex:
+```swift
+actor Foo {
+    func jump() async {}
+}
+```
+
+## [SE-0316][SE-0316] Global Actors
+
+`@MainActor` An attribute to mark properties and methods that should be used only on main thread. So we don't need to check for `Thread.isMainThread` anymore. 
+- Functions marked with `@MainActor` can only be used via `await` or `async let`
+
+Ex:
+```swift
+class Foo {
+    @MainActor
+    func jump() {}
+}
+
+await Foo().jump()
+```
+
+## [SE-0302][SE-0302] Sendable and its closure
+
+`Sendable` protocol and `@sendable` closure attribute.
+```swift
+func foo(_ completion: @escaping @sendable () -> Void) {}
+```
+- Sendable data can be safely transferred to another thread.
+- All value types (`Bool`, `String`, `Int`, etc) confirms to `Sendable` protocol.
+- Optional with value type, Dictionary with value type and Tuples confirms as well.
+- Actors also confirm to Sendable because they handle their synchronization internally.
+- Custom `struct` or `enum` also confirms if they only have value types or type that already confirm to Sendable.
+- Same with `class` if they inherit from `NSObject` and they are marked `final`.
+
+
+## [SE-0308][SE-0308] Postfix member expression
+Mostly used in swift UI
+Ex:
+```swift
+#if OS(iOS)
+// ...
+#else
+//...
+#endif
+
+#if DEBUG
+#endif
+```
+
+## [SE-0307][SE-0307] Interchangeable double and CGFloat
+No more conversion required
+Ex:
+```swift
+let value = Double(3) + CGFloat(4)
+```
+
+## [SE-2095][SE-0295] Codable for enum with associated values
+
+Ex:
+```swift
+enum Foo: Codable {
+    case dance(Int)
+}
+```
+
+## lazy in local context
+
+Ex:
+```swift
+func jump() {
+    lazy var name = ""
+}
+```
+
+## [SE-2093][SE-0293] Extended property wrapper for functions and closures
+
+## [SE-2099][SE-0299] Extended static member lookup in generic context
+
+## References
+- [Hacking With Swift] [https://www.hackingwithswift.com/articles/233/whats-new-in-swift-5-5]()
+
+[SE-0296]: https://github.com/apple/swift-evolution/blob/main/proposals/0296-async-await.md
+[SE-0298]: https://github.com/apple/swift-evolution/blob/main/proposals/0298-asyncsequence.md
+[SE-0310]: https://github.com/apple/swift-evolution/blob/main/proposals/0310-effectful-readonly-properties.md
+[SE-0304]: https://github.com/apple/swift-evolution/blob/main/proposals/0304-structured-concurrency.md
+[SE-0317]: https://github.com/apple/swift-evolution/blob/main/proposals/0317-async-let.md
+[SE-0306]: https://github.com/apple/swift-evolution/blob/main/proposals/0306-actors.md
+[SE-0300]: https://github.com/apple/swift-evolution/blob/main/proposals/0300-continuation.md
+[SE-0316]: https://github.com/apple/swift-evolution/blob/main/proposals/0316-global-actors.md
+[SE-0302]: https://github.com/apple/swift-evolution/blob/main/proposals/0302-concurrent-value-and-concurrent-closures.md
+[SE-0308]: https://github.com/apple/swift-evolution/blob/main/proposals/0308-postfix-if-config-expressions.md
+[SE-0307]: https://github.com/apple/swift-evolution/blob/main/proposals/0307-allow-interchangeable-use-of-double-cgfloat-types.md
+[SE-0295]: https://github.com/apple/swift-evolution/blob/main/proposals/0295-codable-synthesis-for-enums-with-associated-values.md
+[SE-0293]: https://github.com/apple/swift-evolution/blob/main/proposals/0293-extend-property-wrappers-to-function-and-closure-parameters.md
+[SE-0299]: https://github.com/apple/swift-evolution/blob/main/proposals/0299-extend-generic-static-member-lookup.md
