@@ -70,6 +70,9 @@ The target-action mechanism also uses the responder chain by setting the target 
 - It comes into action when content requires more size than the available, when multi-lines.
 - So if we set content compression resistance priority of primary label higher than the secondary label, the secondary label would truncate. And when, content compression resistance priority of primary label is set lower than the secondary label, the primary label would truncate.
 
+### Difference between leftAnchor and leadingAnchor?
+Left and Right constraints are absolute, they will always refer to the left/right of the screen or the control. Leading and trailing constraints are affected by the device locale; In locales where the reading direction is left to right (English, French, Spanish and so on) leading & left (and trailing & right) can be used interchangeably. In locales where the reading direction is right to left (e.g Hebrew, Arabic) then 'leading' will be the right side and 'trailing' will be the left side. 
+
 ### Resources:
 - Constraints: [https://medium.com/@dineshk1389/content-hugging-and-compression-resistance-in-ios-35a0e8f19118]()
 - Hit test: [http://smnh.me/hit-testing-in-ios]() 
