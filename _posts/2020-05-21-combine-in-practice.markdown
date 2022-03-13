@@ -1,8 +1,8 @@
 ---
 title: Combine In-Practice!
 date: 2020-05-21 13:41:10 +0400
-categories: [Swift, Combine]
-tags: [writing, swift]
+categories: [Notes]
+tags: [swift, combine]
 ---
 
 ## Key Points

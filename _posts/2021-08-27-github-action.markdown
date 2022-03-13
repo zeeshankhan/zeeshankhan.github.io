@@ -1,8 +1,8 @@
 ---
 title: Github Action for iOS
 date: 2021-08-27 13:41:10 +0400
-categories: [Swift, CI]
-tags: [writing, swift, ci]
+categories: [Article]
+tags: [swift, ci, github]
 ---
 
 To start with Github Action we need to have a repo and few test written to verify our build and test command.

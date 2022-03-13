@@ -1,8 +1,8 @@
 ---
 title: Big O notation
 date: 2021-08-23 13:41:10 +0400
-categories: []
-tags: [writing, swift]
+categories: [Notes]
+tags: [runtime]
 ---
 
 ## Drop the constants

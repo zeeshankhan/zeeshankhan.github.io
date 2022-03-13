@@ -1,8 +1,8 @@
 ---
 title: Swift 5.5 notes
 date: 2021-08-24 13:41:10 +0400
-categories: [Swift]
-tags: [writing, swift]
+categories: [Notes]
+tags: [swift]
 ---
 
 ## [SE-2096][SE-0296] async, await

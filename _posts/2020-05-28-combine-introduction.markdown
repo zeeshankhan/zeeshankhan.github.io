@@ -1,8 +1,8 @@
 ---
 title: Combine Introduction!
 date: 2020-05-20 13:41:10 +0400
-categories: [Swift, Combine]
-tags: [writing, swift]
+categories: [Notes]
+tags: [swift, combine]
 ---
 
 - Apple introduced a new framework to deal with asynchronous programming called Combine in WWDC 2019.

@@ -1,8 +1,8 @@
 ---
 title: Swift logs
 date: 2021-08-16 13:41:10 +0400
-categories: [Swift]
-tags: [writing, swift]
+categories: [Notes]
+tags: [swift, logs]
 ---
 
 There are many ways we can log our data in standard output console and few of them also supports logging in Console.app. Let's have a look at them:

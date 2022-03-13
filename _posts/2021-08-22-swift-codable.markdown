@@ -1,8 +1,8 @@
 ---
 title: Codable
 date: 2021-08-22 13:41:10 +0400
-categories: [Swift]
-tags: [writing, swift]
+categories: [Notes]
+tags: [swift, codable]
 ---
 
 ## Decoding enum

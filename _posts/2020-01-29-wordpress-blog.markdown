@@ -1,8 +1,8 @@
 ---
 title: Old Blog Posts!
 date: 2020-01-29 12:56:10 +0400
-categories: [iOS, Objective-C]
-tags: [writing, swift]
+categories: [Article]
+tags: [swift, objective-c, core-data, data-structure]
 ---
 
 [Here](https://izeeshan.wordpress.com) you can find my very old blog posts mostly written for iOS and Objective-C language. I do not update this blog anymore. All new content will be recorded here.
