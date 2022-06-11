@@ -11,7 +11,7 @@ order: 5
 ## Profile
 - 12+ years experienced iOS developer with a passion for writing code and building great products.
 - Specialized in platform best practices, interface guidelines, and programming conventions to create clean code that can be easily updated for future platform changes.
-- Extensive experience in using iOS SDK, Swift, RxSwift, Cocoapods, MVVM-C, Git, and RESTFul APIs.
+- Extensive experience in using **iOS SDK, Swift, RxSwift, Cocoapods, MVVM-C, Git, RESTFul APIs** and **Objective-C** in past.
 - Beginner in Kotlin Multiplatform, SwiftUI, Combine and macOS development.
 - Delivering stories and managing multiple product features in agile development.
 
@@ -20,14 +20,14 @@ order: 5
 <p style="text-align:left; line-height:90%;">
 <br/>
     <span style="font-size:130%;">
-        Sr. Software Engineer
+        Careem (an Uber company)
     </span>
     <span style="color:gray;float:right;">
         Dec 2016 – Present
     </span>
     <div>
     <span style="color:gray;"> 
-        Careem (an Uber company)
+        Senior Software Engineer
     </span>
     </div>
 </p>
@@ -38,14 +38,14 @@ order: 5
 <p style="text-align:left; line-height:90%;">
 <br/>
     <span style="font-size:130%;">
-        iOS Developer
+        Housing.com
     </span>
     <span style="color:gray;float:right;">
         Jul 2015 – Nov 2016
     </span>
     <div>
     <span style="color:gray;"> 
-        Housing.com
+        iOS Developer
     </span>
     </div>
 </p>
@@ -54,14 +54,14 @@ order: 5
 <p style="text-align:left; line-height:90%;">
 <br/>
     <span style="font-size:130%;">
-        Sr. Software Engineer
+        Cognizant Technology Services
     </span>
     <span style="color:gray;float:right;">
         Feb 2013 – Jun 2015
     </span>
     <div>
     <span style="color:gray;"> 
-        Cognizant Technology Services
+        Senior Software Engineer
     </span>
     </div>
 </p>
@@ -72,14 +72,14 @@ order: 5
 <p style="text-align:left; line-height:90%;">
 <br/>
     <span style="font-size:130%;">
-        Software Engineer
+        Diaspark Infotech
     </span>
     <span style="color:gray;float:right;">
         Apr 2011 - Jan 2013
     </span>
     <div>
     <span style="color:gray;"> 
-        Diaspark Infotech
+        Software Engineer
     </span>
     </div>
 </p>
@@ -89,14 +89,14 @@ order: 5
 <p style="text-align:left; line-height:90%;">
 <br/>
     <span style="font-size:130%;">
-        Software Developer
+        Teknowledge Software
     </span>
     <span style="color:gray;float:right;">
         Sep 2009 – Mar 2011
     </span>
     <div>
     <span style="color:gray;"> 
-        Teknowledge Software
+        Software Developer
     </span>
     </div>
 </p>
@@ -106,14 +106,14 @@ order: 5
 <p style="text-align:left; line-height:90%;">
 <br/>
     <span style="font-size:130%;">
-        Intern
+        Hover Technologies
     </span>
     <span style="color:gray;float:right;">
         Feb 2009 – May 2009
     </span>
     <div>
     <span style="color:gray;"> 
-        Hover Technologies
+        Intern
     </span>
     </div>
 </p>
@@ -151,14 +151,13 @@ order: 5
     </div>
 </p>
 
-## Skills
-- **Everyday use**: Swift, RxSwift, MVVM-C, Git, RESTFul APIs
-- **Learning**: SwiftUI, Combine, Kotlin for KmP
 
 ## Other
-- **Blog** [https://zeeshankhan.github.io](https://zeeshankhan.github.io)
 - **Github** [http://github.com/zeeshankhan](http://github.com/zeeshankhan)
 - **LinkedIn** [https://www.linkedin.com/in/izeeshan/](https://www.linkedin.com/in/izeeshan/)
 - **Twitter** [https://twitter.com/zeeshan_khan](https://twitter.com/zeeshan_khan)
+- **iMessage** [+971 58 918 3306](tel:+971589183306)
+- **Old Blog** [https://izeeshan.wordpress.com](https://izeeshan.wordpress.com)
+
 
 ### Need a PDF? [Grab one here](https://www.dropbox.com/s/ucpyiq21lsafhlg/Zeeshan%20Khan%20iOS.pdf?dl=0)
